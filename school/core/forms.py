@@ -5,12 +5,6 @@ from django.core.exceptions import ValidationError
  
  
 class UserSignUpForm(UserCreationForm):
-    first_name = models.CharField(max_length=20, blank=False)
-    last_name = models.CharField(max_length=20)
-    email = models.EmailField(null= False, blank= False)
-    phone_number = models.CharField(blank=False, null=True, max_length=10)
-    role = models.CharField(max_length=20, blank=False, null=False)
-    
     def clean_email(self):
         email = self.cleaned_data['email']
         if BaseUser.objects.filter(email=email).exists():
@@ -37,3 +31,4 @@ class UserSignUpForm(UserCreationForm):
     class Meta:
         model = BaseUser
         fields = UserCreationForm.Meta.fields + ('first_name', 'last_name', 'email', 'phone_number', 'role')
+    
