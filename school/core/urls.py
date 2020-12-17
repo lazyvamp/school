@@ -8,6 +8,7 @@ urlpatterns = [
     path('student/register', views.student_register, name='student_register'),
     path('login', views.user_login, name='login'),
     path('logout', views.user_logout, name='logout'),
+    path('forgot/password', views.forgot_password, name='password_forgot'),
 
     #dash API's
     path('admin/dash', views.admin_dash, name='admin_dashboard'),

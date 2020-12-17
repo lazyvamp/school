@@ -26,7 +26,6 @@ def admin_register(request):
     else:
         return JsonResponse({'message': 'Page not found'})
 
-
 @login_required
 @permission_required('can_add_student')
 def student_register(request):
@@ -59,7 +58,6 @@ def teacher_register(request):
     else:
         return JsonResponse({'message': 'Page not found'})
 
-@login_required
 def user_login(request):
     if request.method == "POST":
         request_data = json.loads(request.body)
@@ -127,3 +125,13 @@ def teacher_dash(request):
         except BaseUser.DoesNotExist:
             return JsonResponse({'message': 'Information of requested teacher is not found in database..!!'})
             
+#forgot passsword API's
+
+def forgot_password(request):
+    if request.method == "POST":
+        request_data = json.loads(request.body)
+        user = BaseUser.objects.get(username=request_data['username'], email=request_data['email'])
+        if user is not None:
+            return JsonResponse({'message': 'User Found', 'password': user.password})
+        else:
+            return JsonResponse({'message': 'User not found'}, status=404)
